@@ -35,7 +35,7 @@
 				        <div class="input-field col s6">
 					        <i class="material-icons prefix">account_circle</i>
 					        <input id="icon_prefix" type="text" class="validate">
-					        <label for="icon_prefix">Name (Required)</label>
+					        <label id= "name" class = "qform" for="icon_prefix">Name (Required)</label>
 				        </div>
 				    </div>
 			    </form>
@@ -47,7 +47,7 @@
 				        <div class="input-field col s6">
 					        <i class="material-icons prefix">photo_camera</i>
 					        <input id="icon_prefix" type="text" class="validate">
-					        <label for="icon_prefix">Link to photo (Required)</label>
+					        <label id = "photo" class = "qform" for="icon_prefix">Link to photo (Required)</label>
 				        </div>
 				    </div>
 			    </form>
@@ -60,7 +60,7 @@
 			<h5>Question 1</h5>
 			<p><strong>I like pizza</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q1">
+			  <select data-placeholder="" class="qselect" id="q1">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -73,7 +73,7 @@
 			<h5>Question 2</h5>
 			<p><strong>I love pasta</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q2">
+			  <select data-placeholder="" class="qselect" id="q2">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -85,7 +85,7 @@
 			<h5>Question 3</h5>
 			<p><strong>I love cake</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q3">
+			  <select data-placeholder="" class="qselect" id="q3">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -98,7 +98,7 @@
 			<h5>Question 4</h5>
 			<p><strong>I love kimchi</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q4">
+			  <select data-placeholder="" class="qselect" id="q4">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -111,7 +111,7 @@
 			<h5>Question 5</h5>
 			<p><strong>I love kombucha</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q5">
+			  <select data-placeholder="" class="qselect" id="q5">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -124,7 +124,7 @@
 			<h5>Question 6</h5>
 			<p><strong>I drink tons of coffee</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q6">
+			  <select data-placeholder="" class="qselect" id="q6">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -137,7 +137,7 @@
 			<h5>Question 7</h5>
 			<p><strong>I drink lots of water</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q7">
+			  <select data-placeholder="" class="qselect" id="q7">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -150,7 +150,7 @@
 			<h5>Question 8</h5>
 			<p><strong>I like running</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q8">
+			  <select data-placeholder="" class="qselect" id="q8">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -163,7 +163,7 @@
 			<h5>Question 9</h5>
 			<p><strong>I like cats</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q9">
+			  <select data-placeholder="" class="qselect" id="q9">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -176,7 +176,7 @@
 			<h5>Question 10</h5>
 			<p><strong>I like dogs</strong></p>
 
-			  <select data-placeholder="" class="browser-default" id="q10">
+			  <select data-placeholder="" class="qselect" id="q10">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -187,6 +187,72 @@
             <br />
 
 		</div>
+
+		<button id = "submit" class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
+  			  <i class="material-icons right">send</i>
+ 		</button>
+        
 	</div>
+
+	<script type="text/javascript">
+
+		$("#submit").on("click", function(event) {
+		    event.preventDefault();
+
+
+		        function validateForm() {
+			        var validate = true;
+
+			        $(".qform").each(function() {
+			          if ($(this).val() === "") {
+			            validate = false;
+			          }
+			        });
+
+			        $(".qselect").each(function() {
+			          if ($(this).val() === "") {
+			            validate = false;
+			          }
+			        });
+			        return validate;
+			    }
+
+			    if (validateForm()) {
+
+			    	var userData = {
+			    		name: $("#name").val();
+			    		photo: $("#photo").val();
+
+			    		scores: [
+				            $("#q1").val(),
+				            $("#q2").val(),
+				            $("#q3").val(),
+				            $("#q4").val(),
+				            $("#q5").val(),
+				            $("#q6").val(),
+				            $("#q7").val(),
+				            $("#q8").val(),
+				            $("#q9").val(),
+				            $("#q10").val()
+				          ]
+			    	}
+			    }
+
+
+
+			     $.post("/api/friends", userData, function(data) {
+
+			          $("#friendName").text(data.name);
+			          $("#friendImage").attr("src", data.photo);
+			         
+			        });
+			      } else {
+			        alert("Please fill out all fields before submitting!");
+			      }
+
+		});//submit btn
+
+		
+	</script>
 
 </body>
