@@ -24,4 +24,4 @@ Created during Week 13 of UNH Coding Bootcamp. The goal was to create a Friend F
 
 ## Authors
 
-Roxana Milea - HTML/JS/Node.js - Roxana Milea
+Roxana Milea - HTML/JS/Node.js 
