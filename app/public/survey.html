@@ -60,7 +60,7 @@
 			<h5>Question 1</h5>
 			<p><strong>I like pizza</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q1">
+			  <select data-placeholder="" class="qselect browser-default" id="q1">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -73,7 +73,7 @@
 			<h5>Question 2</h5>
 			<p><strong>I love pasta</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q2">
+			  <select data-placeholder="" class="qselect browser-default" id="q2">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -85,7 +85,7 @@
 			<h5>Question 3</h5>
 			<p><strong>I love cake</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q3">
+			  <select data-placeholder="" class="qselect browser-default" id="q3">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -98,7 +98,7 @@
 			<h5>Question 4</h5>
 			<p><strong>I love kimchi</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q4">
+			  <select data-placeholder="" class="qselect browser-default" id="q4">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -111,7 +111,7 @@
 			<h5>Question 5</h5>
 			<p><strong>I love kombucha</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q5">
+			  <select data-placeholder="" class="qselect browser-default" id="q5">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -124,7 +124,7 @@
 			<h5>Question 6</h5>
 			<p><strong>I drink tons of coffee</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q6">
+			  <select data-placeholder="" class="qselect browser-default" id="q6">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -137,7 +137,7 @@
 			<h5>Question 7</h5>
 			<p><strong>I drink lots of water</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q7">
+			  <select data-placeholder="" class="qselect browser-default" id="q7">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -150,7 +150,7 @@
 			<h5>Question 8</h5>
 			<p><strong>I like running</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q8">
+			  <select data-placeholder="" class="qselect browser-default" id="q8">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -163,7 +163,7 @@
 			<h5>Question 9</h5>
 			<p><strong>I like cats</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q9">
+			  <select data-placeholder="" class="qselect browser-default" id="q9">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -176,7 +176,7 @@
 			<h5>Question 10</h5>
 			<p><strong>I like dogs</strong></p>
 
-			  <select data-placeholder="" class="qselect" id="q10">
+			  <select data-placeholder="" class="qselect browser-default" id="q10">
                     <option value="">Choose an option</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
@@ -199,6 +199,7 @@
 		$("#submit").on("click", function(event) {
 		    event.preventDefault();
 
+		     $('select').formSelect();
 
 		        function validateForm() {
 			        var validate = true;
@@ -236,17 +237,17 @@
 				            $("#q10").val()
 				          ]
 			    	}
-			    }
 
 
 
-			     $.post("/api/friends", userData, function(data) {
+				     $.post("/api/friends", userData, function(data) {
 
-			          $("#friendName").text(data.name);
-			          $("#friendImage").attr("src", data.photo);
-			         
-			        });
-			      } else {
+				          $("#friendName").text(data.name);
+				          $("#friendImage").attr("src", data.photo);
+				         
+				        });
+				}
+			    else {
 			        alert("Please fill out all fields before submitting!");
 			      }
 
