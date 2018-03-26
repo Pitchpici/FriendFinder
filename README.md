@@ -6,10 +6,10 @@ Created during Week 13 of UNH Coding Bootcamp. The goal was to create a Friend F
 
 ## Technologies used
 
-Node.js
-body-parser NPM Package - https://www.npmjs.com/package/body-parser
-express NPM Package - https://www.npmjs.com/package/express
-path NPM Package - https://www.npmjs.com/package/path
+ - Node.js
+ - body-parser NPM Package - https://www.npmjs.com/package/body-parser
+ - express NPM Package - https://www.npmjs.com/package/express
+ - path NPM Package - https://www.npmjs.com/package/path
 
 
 ## Prerequisites
@@ -19,8 +19,8 @@ path NPM Package - https://www.npmjs.com/package/path
 
 ## Built With
 
-Sublime Text - Text Editor
-Materialize - Wireframe
+ - Sublime Text - Text Editor
+ - Materialize - Wireframe
 
 ## Authors
 
