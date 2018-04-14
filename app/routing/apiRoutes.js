@@ -1,42 +1,51 @@
 
-var friends = require("../data/friends.js");
-var newFriend;
 
-module.exports = function(app) {
 
-  app.get("/api/friends", function(req, res) {
-    res.json(friends);
-  });
+var api = function() {
 
-  app.post("/api/friends", function(req, res) {
-    newFriend = req.body
-    friends.push(newFriend);
-    res.json(true);
+    this.jsonFriends = function(app, friends) {
 
-    var difference = 0;
-    var matchId = 0;
+            app.get("/api/friends", function(req, res) {
+                res.json(friends);
+            });
+        },
 
-    var diff = 100;
+        this.postUser = function(app, friends) {
 
-    for (var i=0; i< friends.length; i++) {
-    	for (var j=0; j< 3; j++) {
-    		difference = difference + math.abs(friends[i].scores[j] - req.body.scores[j]);
-    	}
+            app.post("/api/friends", function(req, res) {
 
-    	if (difference < diff) {
+                var newUser = req.body;
+                var curUserIndex = 0;
+                var totDiffs = [];
 
-    		diff = difference;
-    		matchId = i;
-    	}
-    	difference = 0;
-    }
+                while (curUserIndex < friends.length) {
 
-    friends.push(req.body);
-    
-  });
+                    var totalDifference = 0;
+                    for (var i = 0; i < newUser.scores.length; i++) {
+                        totalDifference += Math.abs(parseInt(friends[curUserIndex].scores[i]) - parseInt(newUser.scores[i]));
+                    }
 
- 	res.json(friends[i]);
-};
+                    totDiffs.push(totalDifference);
+                    curUserIndex++;
+                }
+
+                var lowest = totDiffs[0];
+
+                for (var i = 0; i < totDiffs.length; i++) {
+                    if (totDiffs[i] < lowest) {
+                        lowest = totDiffs[i];
+                    }
+                }
+
+                var bestMatch = totDiffs.indexOf(lowest);
+                res.send(friends[bestMatch]);
+                
+                friends.push(newUser);
+            });
+        };
+}
+
+module.exports = api;
 
 
 

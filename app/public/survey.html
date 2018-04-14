@@ -17,12 +17,13 @@
 
  	<!-- Compiled and minified JavaScript -->
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-   
+
 
 </head>
 
 <body>
-	<div class="container">
+	<div id="blob" class="container">
+
 		<h2><strong>Survey Questions</strong></h2>
 
 		<div class = "card-panel orange lighten-5">
@@ -188,28 +189,64 @@
 
 		</div>
 
-		<button id = "submit" class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
+		<button id="submitButton" class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
   			  <i class="material-icons right">send</i>
  		</button>
         
 	</div>
 
-	<script type="text/javascript">
 
-		$("#submit").on("click", function(event) {
-		    event.preventDefault();
+<div id="resultsMatch" class = "container"> 
 
-		     $('select').formSelect();
+	<div class="row">
+		<div class="col l6 offset-l3 center-align">
+			<h4>Meet your new friend!</h4>
+		</div>
+	</div>		
 
-		        function validateForm() {
+	<div class="row">
+		<div class="col l6 offset-l3">
+
+				<h4 id="matchName" class="center-align"></h4>
+				<img id="matchPhoto" src="" alt="Image Not Found" style="max-width: 450px;">
+		</div>
+	</div>		
+        
+</div>
+
+
+  
+<script type="text/javascript">
+
+var allFieldsCompleted;
+   
+$(document).ready(function() {
+
+	$("#resultsMatch").hide();
+
+    // Event Listener for Submission
+    $('#submitButton').on('click', function() {
+          
+        
+        if (validateForm) {
+              collectInputs();
+         
+        }
+            
+        else {
+              alert('Please complete all fields before submitting!');
+             }
+          }); // end checkIfComplete() callback
+
+
+
+ function validateForm() {
 			        var validate = true;
-
 			        $(".qform").each(function() {
 			          if ($(this).val() === "") {
 			            validate = false;
 			          }
 			        });
-
 			        $(".qselect").each(function() {
 			          if ($(this).val() === "") {
 			            validate = false;
@@ -218,41 +255,51 @@
 			        return validate;
 			    }
 
-			    if (validateForm()) {
-
-			    	var userData = {
-			    		name: $("#name").val(),
-			    		photo: $("#photo").val(),
-
-			    		scores: [
-				            $("#q1").val(),
-				            $("#q2").val(),
-				            $("#q3").val(),
-				            $("#q4").val(),
-				            $("#q5").val(),
-				            $("#q6").val(),
-				            $("#q7").val(),
-				            $("#q8").val(),
-				            $("#q9").val(),
-				            $("#q10").val()
-				          ]
-			    	}
 
 
 
-				     $.post("/api/friends", userData, function(data) {
+      function collectInputs(){
 
-				          $("#friendName").text(data.name);
-				          $("#friendImage").attr("src", data.photo);
-				         
-				        });
-				}
-			    else {
-			        alert("Please fill out all fields before submitting!");
-			      }
+        // Make new friend object
+        var newFriend = {
+          name: $('#name').val().trim(),
+          photo: $('#photo').val().trim(),
+          scores: []
+        };
 
-		});//submit btn
+        console.log("This is the new Friend" + newFriend);
 
+ // Loop through Questions to get scores
+ var scoresArray = [];
+
+        $('.qselect').each(function(){
+          scoresArray.push( parseInt( $(this).val() ) ); // Parse Input Value as integer
+        })
+         // This counters the async behavior of $.each()
+        .promise().done(function(){
+          
+          // Push the array of scores to the new friend object
+          newFriend.scores = scoresArray;
+
+          // POST the newFriend to the friends.js file and get back the best match
+          var currentURL = window.location.origin;
+          $.post(currentURL + "/api/friends", newFriend, function(data){
+
+          	$("#blob").hide();
+          	$("#resultsMatch").show();
+
+            // Add Best Match attributes to Modal
+            $('#matchName').text(data.name);
+            $('#matchPhoto').attr('src', data.photo);
+
+            // Show the modal with the best match 
+            // $("#resultsModal").modal('toggle');
+            // instance.open();
+          }); // end AJAX POST
+        });
+      }
+
+});
 		
 	</script>
 

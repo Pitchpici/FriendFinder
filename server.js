@@ -2,25 +2,36 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 
-// Sets up the Express App
-// =============================================================
+var htmlRoutes = require("./app/routing/htmlRoutes.js");
+var apiRoutes = require("./app/routing/apiRoutes.js");
+var friends = require("./app/data/friends.js");
+
 var app = express();
- var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
+// used to serve the static files (style.css, imgs, etc.)
+app.use("/app/public", express.static(__dirname + "/app/public"));
 
 
-//Sets routes from routing folder
-require('./app/routing/htmlRoutes.js')(app);
-require('./app/routing/apiRoutes.js')(app);
+
+// html view routing
+var html = new htmlRoutes();
+var api = new apiRoutes();
+
+html.home(app, path);
+html.survey(app, path);
 
 
 
+// api routing
+api.jsonFriends(app, friends);
+api.postUser(app, friends);
 
-// Starts the server to begin listening
-// =============================================================
 app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+    console.log("server listening on port: " + PORT);
 });
